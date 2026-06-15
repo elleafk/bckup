@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janelle's Blog – Homepage</title>
+    <link rel="stylesheet" href="blogdesign.css">
+    <style>
+        main {
+            min-height: calc(100vh - 140px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .left-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 0 60px 80px;
+            position: relative;
+            z-index: 1;
+            gap: 28px;
+        }
+
+        .greeting-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 18px;
+            border: 3px solid var(--border);
+            box-shadow: 4px 4px 0 var(--accent);
+            width: fit-content;
+            animation: slideInLeft 0.6s cubic-bezier(.22,1,.36,1) both;
+        }
+        .greeting-chip .chip-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--pink);
+            animation: pulseDot 1.8s ease-in-out infinite;
+        }
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.6; }
+        }
+
+        .hero-title {
+            animation: slideInLeft 0.7s cubic-bezier(.22,1,.36,1) 0.1s both;
+        }
+
+        .hero-title h1 {
+            font-size: clamp(36px, 5vw, 62px);
+            font-weight: 900;
+            color: white;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+        }
+
+        .hero-title h1 .name-highlight {
+            color: var(--pink);
+            position: relative;
+            display: inline-block;
+        }
+
+        .dark .hero-title h1 .name-highlight { color: var(--pink); }
+        .hero-title h1 .name-highlight::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 4px;
+            width: 100%; height: 8px;
+            background: var(--pink);
+            opacity: 0.35;
+            z-index: -1;
+        }
+    
+        .bio-card {
+            background: var(--card);
+            border: 5px solid var(--border);
+            box-shadow: 8px 8px 0 var(--primary);
+            padding: 24px 28px;
+            max-width: 480px;
+            animation: slideInLeft 0.75s cubic-bezier(.22,1,.36,1) 0.2s both;
+        }
+
+        .bio-card p {
+            font-size: 16px;
+            line-height: 1.75;
+            color: var(--text);
+        }
+
+        .bio-card p strong { color: var(--pink); }
+        .dark .bio-card p strong { color: var(--pink-dark); }
+
+        .cta-row {
+            display: flex;
+            gap: 14px;
+            animation: slideInLeft 0.85s cubic-bezier(.22,1,.36,1) 0.4s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 800;
+            padding: 14px 28px;
+            border: 4px solid var(--border);
+            box-shadow: 6px 6px 0 var(--accent);
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0 var(--accent);
+        }
+
+        .right-panel {
+            flex: 0 0 420px;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .img-frame {
+            position: absolute;
+            bottom: 40px;
+            right: 150px;
+            width: 340px;
+            height: 440px;
+            border: 6px solid var(--border);
+            box-shadow: 14px 14px 0 var(--primary);
+            background: var(--card);
+            animation: slideInRight 0.8s cubic-bezier(.22,1,.36,1) 0.15s both;
+        }
+
+        .profile-img {
+            position: absolute;
+            bottom: 52px;
+            right: 135px;
+            width: 360px;
+            height: 460px;
+            object-fit: cover;
+            object-position: top center;
+            image-rendering: auto;
+            z-index: 2;
+            animation: slideInRight 0.75s cubic-bezier(.22,1,.36,1) 0.05s both;
+            filter: drop-shadow(6px 8px 0 var(--primary));
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 900px) {
+            main { flex-direction: column; align-items: center; }
+            .left-panel { padding: 40px 24px 20px; align-items: center; text-align: center; }
+            .hero-title h1 { font-size: 36px; }
+            .bio-card { max-width: 100%; }
+            .greeting-chip, .cta-row { justify-content: center; }
+            .right-panel { flex: 0 0 auto; width: 100%; height: 320px; }
+            .img-frame { width: 220px; height: 280px; bottom: 20px; right: 50%; transform: translateX(50%); }
+            .profile-img { width: 240px; height: 300px; bottom: 30px; right: 50%; transform: translateX(50%); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="blogpage1.html">
+                <img src="assets/logos/butterfly.svg" alt="Butterfly Logo" class="logo-img">
+                <span class="blog-name">Janelle's Personal Blog</span>
+            </a>
+        </div>
+        <div class="header-right">
+            <nav>
+                <ul>
+                    <li><a href="blogpage2.html#hobbies"><img src="assets/logos/hobbies.svg" alt="" class="icon"> Hobbies</a></li>
+                    <li><a href="blogpage2.html#gallery"><img src="assets/logos/gallery.svg" alt="" class="icon"> Gallery</a></li>
+                    <li><a href="blogpage2.html#music"><img src="assets/logos/songs.svg" alt="" class="icon"> Favorite Songs</a></li>
+                    <li><a href="#" id="contact-nav-btn"><img src="assets/logos/contact.svg" alt="" class="icon"> Contacts</a></li>
+                </ul>
+            </nav>
+            <label class="switch" aria-label="Toggle dark mode">
+                <input type="checkbox" id="theme-toggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </header>
+
+    <main>
+        <div class="left-panel">
+
+            <div class="greeting-chip">
+                <span class="chip-dot"></span>
+                Welcome to my blog!
+            </div>
+
+            <div class="hero-title">
+                <h1>
+                    Hello, I'm <span class="name-highlight">Janelle</span>
+                    and this is my<br>personal space.
+                </h1>
+            </div>
+
+            <div class="bio-card">
+                <p>
+                    I'm <strong>Janelle S. Pahati</strong>, 19 years old and currently a <strong>BSIT</strong> student
+                    at <strong>Bulacan State University, Hagonoy Campus</strong>. This blog is my place where I share
+                    what makes me, <em>me</em>.
+                </p>
+            </div>
+
+            <div class="cta-row">
+                <a href="blogpage2.html#hobbies" class="btn-primary" id="explore-btn">
+                    Explore my blog  →
+                </a>
+            </div>
+
+        </div>
+
+        <div class="right-panel">
+            <div class="img-frame"></div>
+            <img class="profile-img" src="assets/images/id.png" alt="Janelle" title="Profile Picture">
+        </div>
+
+    </main>
+
+    <footer>
+        <p class="footer-text">© 2026 <span>Janelle's Blog</span>. All rights reserved.</p>
+    </footer>
+
+    <div id="overlay" onclick="closeContact()"></div>
+
+    <div id="contactModal">
+        <button class="contact-close-btn" onclick="closeContact()" aria-label="Close contact">✕</button>
+        <h2 style="color:var(--muted);margin-bottom:6px;padding-right:32px;">Contact Me!</h2>
+        <p style="color:var(--muted);margin-bottom:20px;font-size:13px;">You can connect with me here:</p>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            <img src="assets/images/contact.jpg" alt="Profile"
+                style="border-radius:500px;border:4px solid var(--border);
+                        box-shadow:5px 5px 0 var(--primary);
+                        width:110px;height:110px;object-fit:cover;align-self:center;
+                        margin-bottom:8px;">
+
+            <a href="mailto:pahatijanelle@gmail.com" class="contact-info-row" style="text-decoration:none;">
+                <span class="contact-info-icon"></span>
+                <div>
+                    <div class="contact-info-label">Email</div>
+                    <div class="contact-info-value">pahatijanelle@gmail.com</div>
+                </div>
+                <span style="margin-left:auto;color:var(--muted);font-size:13px;">↗</span>
+            </a>
+
+            <a href="tel:09666358364" class="contact-info-row" style="text-decoration:none;">
+                <span class="contact-info-icon"></span>
+                <div>
+                    <div class="contact-info-label">Phone</div>
+                    <div class="contact-info-value">09666358364</div>
+                </div>
+                <span style="margin-left:auto;color:var(--muted);font-size:13px;">↗</span>
+            </a>
+
+            <a href="https://www.facebook.com/profile.php?id=61581715381119" target="_blank" rel="noopener" class="contact-info-row" style="text-decoration:none;">
+                <span class="contact-info-icon"></span>
+                <div>
+                    <div class="contact-info-label">Facebook</div>
+                    <div class="contact-info-value">Janelle Salamat Pahati</div>
+                </div>
+                <span style="margin-left:auto;color:var(--muted);font-size:13px;">↗</span>
+            </a>
+
+            <a href="https://www.instagram.com/elleslmtph/" target="_blank" rel="noopener" class="contact-info-row" style="text-decoration:none;">
+                <span class="contact-info-icon"></span>
+                <div>
+                    <div class="contact-info-label">Instagram</div>
+                    <div class="contact-info-value">@elleslmtph</div>
+                </div>
+                <span style="margin-left:auto;color:var(--muted);font-size:13px;">↗</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="blog.js"></script>
+    <script>
+        /* Contact Modal */
+        function openContact(e) {
+            if (e) e.preventDefault();
+            document.getElementById('contactModal').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+        function closeContact() {
+            document.getElementById('contactModal').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('contact-nav-btn').addEventListener('click', openContact);
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeContact();
+        });
+
+        document.getElementById('explore-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            setTimeout(() => {
+                window.location.href = 'blogpage2.html#hobbies';
+            }, 400);
+        });
+    </script>
+</body>
+</html>
